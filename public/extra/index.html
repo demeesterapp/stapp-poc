@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Extra Page</h1>
+    <ul>
+        <li><a href="/">home</a></li>
+        <li>extra</li>
+    </ul>
+    <div id="userinfo"></div>
+    <script>
+    
+    fetch('/.auth/me')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(payload) {
+            
+            const { clientPrincipal } = payload;
+            console.log(clientPrincipal);
+
+            let inner="";
+            for (let key in clientPrincipal) {
+	            inner+= "<li><b>" + key + "</b> -> " + clientPrincipal[key] + "</li>";
+            }
+            document.getElementById("userinfo").innerHTML="<ul>" + inner + "</ul>";
+        })        
+    </script>
+</body>
+</html>
